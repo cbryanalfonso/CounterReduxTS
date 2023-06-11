@@ -2,16 +2,31 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 interface CounterState {
   value: number;
+  products: any[];
 }
 
 const initialState: CounterState = {
   value: 0,
+  products: [],
 };
 
 const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
+    getProduct: state => {
+      // Realizar la solicitud HTTP y actualizar products de manera inmutable
+      fetch('https://fakestoreapi.com/products')
+        .then(res => res.json())
+        .then(response => {
+          // state.products = response; // Esto no es válido en Redux Toolkit
+          // En su lugar, retorna un nuevo estado con los productos actualizados
+          return {
+            ...state,
+            products: response,
+          };
+        });
+    },
     increment: state => {
       state.value++;
     },
@@ -30,5 +45,12 @@ const counterSlice = createSlice({
   },
 });
 
-export const { increment, decrement, incrementByAmount, decrementByAmount, reset } = counterSlice.actions;
+export const {
+  increment,
+  decrement,
+  incrementByAmount,
+  decrementByAmount,
+  reset,
+  getProduct,
+} = counterSlice.actions;
 export default counterSlice.reducer;

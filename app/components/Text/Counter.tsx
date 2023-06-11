@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   txtTitle: {
     fontSize: 30,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   txtCounter: {
     fontSize: 40,
